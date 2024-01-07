@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import Field from '@/components/ui/Field';
 import { AtSign, KeyRound, User2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/dist/client/components/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -14,6 +15,7 @@ interface IAuth {
 
 export function Auth({ type }: IAuth) {
 	const [isLoading, setIsLoading] = useState(false);
+	const router = useRouter();
 	const { register, handleSubmit } = useForm<IAuthFormState>({
 		model: 'onChange',
 	});
@@ -27,7 +29,10 @@ export function Auth({ type }: IAuth) {
 		});
 		if (response?.error) {
 			toast.error(response.error);
+			setIsLoading(false);
+			return;
 		}
+		router.push('/');
 		setIsLoading(false);
 	};
 

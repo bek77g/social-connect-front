@@ -11,15 +11,18 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			Cookies.set('token', user?.jwt ?? '');
+			Cookies.set('token', user?.jwt ?? '', { expires: 1 });
 		}
 	}, [user, isLoggedIn]);
 
 	useEffect(() => {
 		if (pathname !== '/login' && pathname !== '/register') {
+			const isLoggedIn = !!Cookies.get('token');
 			if (!isLoggedIn) router.push('/login');
 		}
 	}, [pathname]);
+
+	//Надо переделать на middleware
 
 	return children;
 }
