@@ -1,3 +1,4 @@
+import LayoutClient from '@/components/layout/LayoutClient';
 import type { Metadata } from 'next';
 import { Viewport } from 'next/dist/lib/metadata/types/metadata-interface';
 import { Inter } from 'next/font/google';
@@ -23,7 +24,9 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<LayoutClient>{children}</LayoutClient>
+			</body>
 		</html>
 	);
 }
