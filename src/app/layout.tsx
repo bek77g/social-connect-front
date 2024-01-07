@@ -1,3 +1,4 @@
+import Providers from '@/components/Providers/Providers';
 import LayoutClient from '@/components/layout/LayoutClient';
 import type { Metadata } from 'next';
 import { Viewport } from 'next/dist/lib/metadata/types/metadata-interface';
@@ -23,10 +24,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang='en'>
-			<body className={inter.className}>
-				<LayoutClient>{children}</LayoutClient>
-			</body>
-		</html>
+		<Providers>
+			<html lang='en'>
+				<body className={inter.className}>
+					<LayoutClient>{children}</LayoutClient>
+				</body>
+			</html>
+		</Providers>
 	);
 }
