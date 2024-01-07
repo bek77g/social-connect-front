@@ -4,6 +4,9 @@
 		@apply flex gap-8 flex-col;
 		li {
 			@apply block;
+			&.active svg {
+				@apply text-white;
+			}
 		}
 	}
 	svg {
