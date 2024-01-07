@@ -5,3 +5,8 @@ export interface IUser {
 	role: string;
 	avatar: string;
 }
+
+export type UserJwt = {
+	user: IUser;
+	jwt: string;
+};

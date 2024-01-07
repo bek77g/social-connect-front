@@ -1,5 +1,5 @@
-import Providers from '@/components/Providers/Providers';
 import LayoutClient from '@/components/layout/LayoutClient';
+import Providers from '@/providers/Providers';
 import type { Metadata } from 'next';
 import { Viewport } from 'next/dist/lib/metadata/types/metadata-interface';
 import { Inter } from 'next/font/google';

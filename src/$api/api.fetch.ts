@@ -34,7 +34,7 @@ class FetchClient {
 		return this.fetch<T>(path, 'PUT', body, headers, isAuth);
 	}
 
-	async put<T>(
+	async delete<T>(
 		path: string,
 		headers?: Record<string, string>,
 		isAuth: boolean = false
@@ -51,14 +51,15 @@ class FetchClient {
 		return this.fetch<T>(path, 'PATCH', body, headers, isAuth);
 	}
 
-	private async fetch(
-		body: Record<string, any>,
+	private async fetch<T>(
+		path: string,
 		method: string,
 		body?: Record<string, any>,
 		headers?: Record<string, string>,
 		isAuth: boolean
-	): Promise<any> {
-		const url = `${this.API_URL}/${path}`;
+	): Promise<T> {
+		const url = `${this.API_URL}${path}`;
+
 		const authorizationHeader = isAuth
 			? { Authorization: `Bearer ${localStorage.getItem('token')}` }
 			: {};
@@ -78,13 +79,11 @@ class FetchClient {
 			const data = await response.json();
 
 			if (!response.ok) {
-				console.error('Error fetching: ' + data);
-				throw new Error('Error fetching: ' + JSON.stringify(data));
+				throw new Error(data);
 			}
 
 			return data;
 		} catch (error) {
-			console.error('Error fetching: ' + error);
 			throw error;
 		}
 	}
