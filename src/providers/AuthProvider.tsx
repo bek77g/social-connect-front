@@ -15,14 +15,5 @@ export function AuthProvider({ children }: PropsWithChildren) {
 		}
 	}, [user, isLoggedIn]);
 
-	// useEffect(() => {
-	// 	if (pathname !== '/login' && pathname !== '/register') {
-	// 		const isLoggedIn = !!Cookies.get('token');
-	// 		if (!isLoggedIn) router.push('/login');
-	// 	}
-	// }, [pathname]);
-
-	//Надо переделать на middleware
-
 	return children;
 }

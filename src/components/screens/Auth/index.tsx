@@ -5,7 +5,6 @@ import Field from '@/components/ui/Field';
 import { AtSign, KeyRound, User2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/components/navigation';
-import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -17,7 +16,11 @@ interface IAuth {
 export function Auth({ type }: IAuth) {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
-	const { register, handleSubmit } = useForm<IAuthFormState>({
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IAuthFormState>({
 		model: 'onChange',
 	});
 
@@ -25,7 +28,6 @@ export function Auth({ type }: IAuth) {
 		setIsLoading(true);
 		const response = await signIn('credentials', {
 			redirect: false,
-			callbackUrl: '/',
 			...data,
 		});
 		if (response?.error) {
@@ -52,6 +54,7 @@ export function Auth({ type }: IAuth) {
 						type='text'
 						Icon={User2}
 						className='mb-6'
+						error={errors.username}
 					/>
 				)}
 				<Field
@@ -62,6 +65,7 @@ export function Auth({ type }: IAuth) {
 					type='email'
 					Icon={AtSign}
 					className='mb-6'
+					error={errors.email}
 				/>
 				<Field
 					{...register('password', {
@@ -75,15 +79,13 @@ export function Auth({ type }: IAuth) {
 					type='password'
 					Icon={KeyRound}
 					className='mb-12'
+					error={errors.password}
 				/>
 				<div className='text-center'>
 					<Button isLoading={isLoading} disabled={isLoading} type='submit'>
 						{type}
 					</Button>
 				</div>
-				<Link href={type === 'Login' ? '/register' : '/login'}>
-					{type === 'Login' ? 'Регистрация' : 'Вход'}
-				</Link>
 			</form>
 		</div>
 	);
