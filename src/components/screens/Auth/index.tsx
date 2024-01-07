@@ -5,6 +5,7 @@ import Field from '@/components/ui/Field';
 import { AtSign, KeyRound, User2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/components/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -80,6 +81,9 @@ export function Auth({ type }: IAuth) {
 						{type}
 					</Button>
 				</div>
+				<Link href={type === 'Login' ? '/register' : '/login'}>
+					{type === 'Login' ? 'Регистрация' : 'Вход'}
+				</Link>
 			</form>
 		</div>
 	);
