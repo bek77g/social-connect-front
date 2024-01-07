@@ -12,6 +12,9 @@ const config: Config = {
 				white: '#efeff3',
 				border: 'rgba(255, 255, 255, 0.12)',
 			},
+			padding: {
+				layout: '1.25rem',
+			},
 		},
 	},
 	plugins: [],
