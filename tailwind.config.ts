@@ -11,6 +11,7 @@ const config: Config = {
 			colors: {
 				white: '#efeff3',
 				border: 'rgba(255, 255, 255, 0.12)',
+				primary: '#6f3bfe',
 			},
 			padding: {
 				layout: '1.25rem',
