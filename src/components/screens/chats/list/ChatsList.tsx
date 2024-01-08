@@ -3,14 +3,21 @@ import { $fetch } from '@/$api/api.fetch';
 import { ChatListItem } from '@/components/screens/chats/list/ChatListItem';
 import Field from '@/components/ui/Field';
 import { Loader } from '@/components/ui/Loader';
-import { IChat } from '@/types/chat.types';
+import useAuth from '@/hooks/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { Search } from 'lucide-react';
 
 export function ChatsList() {
+	const { isLoggedIn } = useAuth();
 	const { data, isLoading } = useQuery({
 		queryKey: ['chats'],
-		queryFn: () => $fetch.get<IChat[]>('/cahts', {}, true),
+		queryFn: () =>
+			$fetch.get<{ data: IChat[] }>(
+				'/chats?populate[messages]=*&populate[participants]=*',
+				{},
+				true
+			),
+		enabled: isLoggedIn,
 	});
 
 	return (
@@ -23,8 +30,8 @@ export function ChatsList() {
 					<div className='p-layout'>
 						<Loader />
 					</div>
-				) : data?.length ? (
-					data.map(chat => <ChatListItem key={chat.id} {...chat} />)
+				) : data?.data?.length ? (
+					data?.data.map(chat => <ChatListItem key={chat.id} {...chat} />)
 				) : (
 					<p className='p-layout'>Chats not found!</p>
 				)}
