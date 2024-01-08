@@ -1,3 +1,4 @@
+import { cookies } from '@/$api/api.cookie';
 import { IUser } from '@/types/user.types';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
@@ -21,7 +22,7 @@ const useAuth = (): AuthHook => {
 	};
 
 	const logout = (): void => {
-		signOut();
+		signOut().then(() => cookies.remove('token'));
 	};
 
 	return { user, isLoggedIn, sessionStatus, login, logout };
