@@ -1,7 +1,7 @@
 'use client';
+import { cookies } from '@/$api/api.cookie';
 import { Loader } from '@/components/ui/Loader';
 import useAuth from '@/hooks/useAuth';
-import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/dist/client/components/navigation';
 import { PropsWithChildren, useEffect } from 'react';
 
@@ -22,8 +22,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 			router.push('/login');
 		}
 		if (authorized) {
-			Cookies.set('token', user?.jwt ?? '', {
-				expires: 1,
+			cookies.set('token', user?.jwt ?? '', {
 				sameSite: 'None',
 				secure: true,
 			});
