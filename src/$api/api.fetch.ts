@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers';
+import { cookies } from '@/$api/api.cookie';
 
 class FetchClient {
 	private url: string;
@@ -62,7 +62,7 @@ class FetchClient {
 	): Promise<T> {
 		const url = `${this.API_URL}${path}`;
 		const authorizationHeader = isAuth
-			? { Authorization: `Bearer ${cookies().get('token')?.value}` }
+			? { Authorization: `Bearer ${cookies.get('token')}` }
 			: {};
 
 		try {
