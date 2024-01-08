@@ -3,7 +3,7 @@ import { cookies } from '@/$api/api.cookie';
 class FetchClient {
 	private url: string;
 	private defaultHeaders: Record<string, string>;
-	private API_URL = process.env.API_URL as string;
+	private API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 	constructor(url: string, defaultHeaders: Record<string, string> = {}) {
 		this.url = this.API_URL + url;
@@ -61,6 +61,8 @@ class FetchClient {
 		isAuth: boolean
 	): Promise<T> {
 		const url = `${this.API_URL}${path}`;
+		console.log(url);
+
 		const authorizationHeader = isAuth
 			? { Authorization: `Bearer ${cookies.get('token')}` }
 			: {};
