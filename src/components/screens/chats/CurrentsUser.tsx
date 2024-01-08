@@ -1,4 +1,5 @@
 'use client';
+import { getImageUrl } from '@/configs/get-image-url.config';
 import useAuth from '@/hooks/useAuth';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
@@ -6,13 +7,15 @@ import Image from 'next/image';
 export function CurrentsUser() {
 	const { user, logout } = useAuth();
 
+	if (!user) return null;
+
 	return (
 		<div className='p-layout flex items-center justify-between'>
 			<div className=' flex items-center gap-4'>
 				<Image
 					width={50}
 					height={50}
-					src={user?.avatar ?? '/no-avatar.png'}
+					src={getImageUrl(user.avatar?.url) ?? '/no-avatar.png'}
 					alt={user?.email ?? 'USER'}
 				/>
 				<div className='text-sm'>
