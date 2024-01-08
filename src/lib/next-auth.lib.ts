@@ -45,7 +45,7 @@ export default NextAuth({
 
 					cookies.set('token', jwt);
 
-					const { user } = await $fetch.get<UserJwt>(
+					const user = await $fetch.get<UserJwt>(
 						'/users/me?populate[avatar]=*',
 						{},
 						true
