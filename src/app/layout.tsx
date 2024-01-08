@@ -10,12 +10,12 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
 	title: 'Social Connect',
 	description: 'Social Connect created by Beknur',
+	icons: '/logo.svg',
 };
 
 export const viewport: Viewport = {
 	themeColor: '#0e0b18',
 	colorScheme: 'dark',
-	icons: '/logo.svg',
 };
 
 export default function RootLayout({
