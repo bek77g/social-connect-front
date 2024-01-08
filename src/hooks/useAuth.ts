@@ -3,14 +3,16 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 interface AuthHook {
 	user: Record<string, any> | null;
 	isLoggedIn: boolean;
+	sessionStatus: string;
 	login: () => void;
 	logout: () => void;
 }
 
 const useAuth = (): AuthHook => {
-	const { data: session, status } = useSession();
+	const { data: session, status: sessionStatus } = useSession();
 
-	const isLoggedIn: boolean = status === 'authenticated';
+	const isLoggedIn: boolean = sessionStatus === 'authenticated';
+
 	const user: Record<string, any> | null = session?.user || null;
 
 	const login = (): void => {
@@ -21,7 +23,7 @@ const useAuth = (): AuthHook => {
 		signOut();
 	};
 
-	return { user, isLoggedIn, login, logout };
+	return { user, isLoggedIn, sessionStatus, login, logout };
 };
 
 export default useAuth;
