@@ -1,6 +1,6 @@
-import { Chat } from '@/components/screens/chats/Chat';
-import { ChatsList } from '@/components/screens/chats/ChatsList';
+import { Chat } from '@/components/screens/chats/chat/Chat';
 import { CurrentsUser } from '@/components/screens/chats/CurrentsUser';
+import { ChatsList } from '@/components/screens/chats/list/ChatsList';
 
 export default function ChatPage() {
 	return (
