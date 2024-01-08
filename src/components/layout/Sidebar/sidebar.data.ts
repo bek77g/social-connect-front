@@ -1,4 +1,4 @@
-import { Routes } from '@/configs/links.config';
+import { Routes } from '@/constants/links.constants';
 import { MessagesSquare, Phone, Settings, Users2 } from 'lucide-react';
 
 export const MENU = [
