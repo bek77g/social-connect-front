@@ -1,7 +1,8 @@
+import { IUser } from '@/types/user.types';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 interface AuthHook {
-	user: Record<string, any> | null;
+	user: IUser;
 	isLoggedIn: boolean;
 	sessionStatus: string;
 	login: () => void;
