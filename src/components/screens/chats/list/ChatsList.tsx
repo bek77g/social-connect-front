@@ -3,8 +3,11 @@ import { Search } from 'lucide-react';
 
 export function ChatsList() {
 	return (
-		<div className='p-layout'>
-			<Field placeholder='Search chat' Icon={Search} />
-		</div>
+		<>
+			<div className='border-t border-b border-border p-layout'>
+				<Field placeholder='Search chat' Icon={Search} />
+				<ul></ul>
+			</div>
+		</>
 	);
 }
