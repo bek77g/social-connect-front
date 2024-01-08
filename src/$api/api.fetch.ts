@@ -1,3 +1,5 @@
+import { cookies } from 'next/headers';
+
 class FetchClient {
 	private url: string;
 	private defaultHeaders: Record<string, string>;
@@ -59,9 +61,8 @@ class FetchClient {
 		isAuth: boolean
 	): Promise<T> {
 		const url = `${this.API_URL}${path}`;
-
 		const authorizationHeader = isAuth
-			? { Authorization: `Bearer ${localStorage.getItem('token')}` }
+			? { Authorization: `Bearer ${cookies().get('token')?.value}` }
 			: {};
 
 		try {

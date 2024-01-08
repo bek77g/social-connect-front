@@ -21,7 +21,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 			router.push('/login');
 		}
 		if (authorized) {
-			Cookies.set('token', user?.jwt ?? '', { expires: 1 });
+			Cookies.set('token', user?.jwt ?? '', {
+				expires: 1,
+				sameSite: 'None',
+				secure: true,
+			});
 		}
 	}, [loading, unAuthorized, sessionStatus, pathname]);
 
