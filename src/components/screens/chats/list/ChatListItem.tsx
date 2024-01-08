@@ -1,3 +1,4 @@
+import { getImageUrl } from '@/configs/get-image-url.config';
 import useAuth from '@/hooks/useAuth';
 import { IChat } from '@/types/chat.types';
 import dayjs from 'dayjs';
@@ -16,7 +17,7 @@ export function ChatListItem({ participants, messages, id }: IChat) {
 			<Image
 				width={45}
 				height={45}
-				src={correspondent?.avatar ?? '/no-avatar.png'}
+				src={getImageUrl(correspondent?.avatar.url) ?? '/no-avatar.png'}
 				alt={correspondent?.email ?? 'CORRESPONDENT'}
 			/>
 			<div className='text-sm w-full'>

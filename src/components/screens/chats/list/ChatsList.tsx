@@ -13,7 +13,7 @@ export function ChatsList() {
 		queryKey: ['chats'],
 		queryFn: () =>
 			$fetch.get<{ data: IChat[] }>(
-				'/chats?populate[messages]=*&populate[participants]=*',
+				'/chats?populate[messages]=*&populate[participants][populate][avatar]=*',
 				{},
 				true
 			),
