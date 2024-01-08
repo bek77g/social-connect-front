@@ -17,7 +17,7 @@ export function ChatListItem({ participants, messages, id }: IChat) {
 			<Image
 				width={45}
 				height={45}
-				src={getImageUrl(correspondent?.avatar.url) ?? '/no-avatar.png'}
+				src={getImageUrl(correspondent.avatar?.url) ?? '/no-avatar.png'}
 				alt={correspondent?.email ?? 'CORRESPONDENT'}
 			/>
 			<div className='text-sm w-full'>
