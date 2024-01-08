@@ -7,6 +7,7 @@ import { PropsWithChildren, useEffect } from 'react';
 
 export function AuthProvider({ children }: PropsWithChildren) {
 	const { user, sessionStatus } = useAuth();
+
 	const pathname = usePathname();
 	const router = useRouter();
 
