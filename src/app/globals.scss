@@ -12,3 +12,28 @@ body {
 h1 {
 	@apply text-4xl font-bold;
 }
+
+.animation-slide-fade {
+	-webkit-animation: slideFade;
+	animation: slideFade 0.4s;
+}
+@-webkit-keyframes slideFade {
+	from {
+		transform: translateY(-22px);
+		opacity: 0.4;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+@keyframes slideFade {
+	from {
+		transform: translateY(-22px);
+		opacity: 0.4;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
