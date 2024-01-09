@@ -12,28 +12,25 @@ export function Avatar({
 }: IAvatar) {
 	const hasAvatar = !!user.avatar?.url;
 	const usernameInitial = user?.username[0].toUpperCase() ?? '';
-	console.log(user);
 
 	return (
-		<>
+		<div
+			style={{ width, height, minWidth: width }}
+			className={cn(
+				`rounded-lg grid place-content-center bg-border text-white select-none overflow-hidden text-2xl`,
+				className
+			)}>
 			{hasAvatar ? (
 				<Image
-					className={cn('rounded-lg', className)}
+					className='w-full h-full'
 					width={width}
 					height={height}
 					src={getImageUrl(user.avatar?.url) ?? '/no-avatar.png'}
 					alt={user?.email ?? 'USER'}
 				/>
 			) : (
-				<div
-					style={{ width, height, minWidth: width }}
-					className={cn(
-						`rounded-lg grid place-content-center bg-border text-white select-none`,
-						className
-					)}>
-					{usernameInitial}
-				</div>
+				usernameInitial
 			)}
-		</>
+		</div>
 	);
 }
