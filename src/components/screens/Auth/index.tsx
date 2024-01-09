@@ -40,7 +40,7 @@ export function Auth({ type }: IAuth) {
 	};
 
 	return (
-		<div className='flex w-full h-full'>
+		<div className='flex w-screen h-full'>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
 				className='m-auto block max-w-lg w-96 border border-border p-layout'>
