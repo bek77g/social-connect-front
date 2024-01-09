@@ -17,7 +17,7 @@ export function Avatar({
 		<div
 			style={{ width, height, minWidth: width }}
 			className={cn(
-				`rounded-lg grid place-content-center bg-border text-white select-none overflow-hidden text-2xl`,
+				`rounded-lg grid place-content-center bg-[#ede7f6] text-white select-none overflow-hidden text-2xl`,
 				className
 			)}>
 			{hasAvatar ? (
