@@ -4,7 +4,7 @@ import { IChat } from '@/types/chat.types';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 
-export function ChatListItem({ participants, messages, id }: IChat) {
+export function ChatsListItem({ participants, messages, id }: IChat) {
 	const { user } = useAuth();
 	const correspondent = participants.find(u => u.email !== user?.email);
 	const lastMessage = messages.at(-1);

@@ -1,6 +1,6 @@
 'use client';
 import { $fetch } from '@/$api/api.fetch';
-import { ChatListItem } from '@/components/screens/chats/list/ChatListItem';
+import { ChatsListItem } from '@/components/screens/chats/list/ChatsListItem';
 import Field from '@/components/ui/Field';
 import { Loader } from '@/components/ui/Loader';
 import useAuth from '@/hooks/useAuth';
@@ -31,7 +31,7 @@ export function ChatsList() {
 						<Loader />
 					</div>
 				) : data?.data?.length ? (
-					data?.data.map(chat => <ChatListItem key={chat.id} {...chat} />)
+					data?.data.map(chat => <ChatsListItem key={chat.id} {...chat} />)
 				) : (
 					<p className='p-layout'>Chats not found!</p>
 				)}
