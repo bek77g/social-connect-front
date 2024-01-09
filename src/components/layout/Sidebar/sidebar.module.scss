@@ -1,5 +1,5 @@
 .sidebar {
-	@apply flex items-center flex-col justify-between border-r-2 py-layout;
+	@apply flex items-center flex-col justify-between border-r-2 py-layout px-1;
 	ul {
 		@apply flex gap-8 flex-col;
 		li {
