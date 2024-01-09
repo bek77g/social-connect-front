@@ -12,7 +12,7 @@ export function ChatsListItem({ participants, messages, id }: IChat) {
 	return (
 		<Link
 			href={`/chat/${id}`}
-			className='p-layout flex items-center gap-4 border-b border-border duration-300 ease-linear transition-colors hover:bg-border'>
+			className='p-layout flex items-center gap-4 border-b border-border duration-300 ease-linear transition-colors hover:bg-border animation-slide-fade'>
 			<Avatar user={correspondent} width={45} height={45} />
 			<div className='text-sm w-full'>
 				<div className='flex items-center justify-between'>
