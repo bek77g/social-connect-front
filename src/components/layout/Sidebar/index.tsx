@@ -16,7 +16,9 @@ export function Sidebar() {
 
 	return (
 		<aside className={styles.sidebar}>
-			<Image src='/logo.svg' priority alt='ICO' width={40} height={40} />
+			<Link href='/'>
+				<Image src='/logo.svg' priority alt='ICO' width={40} height={40} />
+			</Link>
 			<ul>
 				{MENU.map(({ icon: Icon, url }) => (
 					<li
