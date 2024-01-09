@@ -25,15 +25,19 @@ export default NextAuth({
 				if (!email || !password) return null;
 				if (username) {
 					try {
-						const { user, jwt } = await $fetch.post<UserJwt>(
+						const { jwt } = await $fetch.post<UserJwt>(
 							`/auth/local/register`,
 							credentials
 						);
+						cookies.set('token', jwt);
+						const user = await $fetch.get<UserJwt>(
+							'/users/me?populate[avatar]=*',
+							{},
+							true
+						);
 						return { ...user, jwt };
 					} catch (error) {
-						return Promise.reject({
-							message: 'Register error, not valid data',
-						});
+						return Promise.reject(error);
 					}
 				}
 
@@ -42,9 +46,7 @@ export default NextAuth({
 						identifier: email,
 						password: password,
 					});
-
 					cookies.set('token', jwt);
-
 					const user = await $fetch.get<UserJwt>(
 						'/users/me?populate[avatar]=*',
 						{},
@@ -52,7 +54,7 @@ export default NextAuth({
 					);
 					return { ...user, jwt };
 				} catch (error) {
-					return Promise.reject({ message: 'Login error, not valid data' });
+					return Promise.reject(error);
 				}
 			},
 		}),

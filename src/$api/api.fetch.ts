@@ -82,11 +82,12 @@ class FetchClient {
 			const data = await response.json();
 
 			if (!response.ok) {
-				throw new Error(data);
+				throw data?.error;
 			}
 
 			return data;
 		} catch (error) {
+			console.log(JSON.stringify(error));
 			throw error;
 		}
 	}
