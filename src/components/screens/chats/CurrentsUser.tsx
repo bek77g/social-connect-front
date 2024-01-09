@@ -13,6 +13,7 @@ export function CurrentsUser() {
 		<div className='p-layout flex items-center justify-between'>
 			<div className=' flex items-center gap-4'>
 				<Image
+					className='rounded-lg'
 					width={50}
 					height={50}
 					src={getImageUrl(user.avatar?.url) ?? '/no-avatar.png'}

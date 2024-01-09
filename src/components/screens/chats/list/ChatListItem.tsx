@@ -15,6 +15,7 @@ export function ChatListItem({ participants, messages, id }: IChat) {
 			href={`/chat/${id}`}
 			className='p-layout flex items-center gap-4 border-b border-border duration-300 ease-linear transition-colors hover:bg-border'>
 			<Image
+				className='rounded-lg'
 				width={45}
 				height={45}
 				src={getImageUrl(correspondent.avatar?.url) ?? '/no-avatar.png'}
