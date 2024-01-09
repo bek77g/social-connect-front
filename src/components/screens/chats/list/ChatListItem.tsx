@@ -1,8 +1,7 @@
-import { getImageUrl } from '@/configs/get-image-url.config';
+import { Avatar } from '@/components/ui/Avatar';
 import useAuth from '@/hooks/useAuth';
 import { IChat } from '@/types/chat.types';
 import dayjs from 'dayjs';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export function ChatListItem({ participants, messages, id }: IChat) {
@@ -14,13 +13,7 @@ export function ChatListItem({ participants, messages, id }: IChat) {
 		<Link
 			href={`/chat/${id}`}
 			className='p-layout flex items-center gap-4 border-b border-border duration-300 ease-linear transition-colors hover:bg-border'>
-			<Image
-				className='rounded-lg'
-				width={45}
-				height={45}
-				src={getImageUrl(correspondent.avatar?.url) ?? '/no-avatar.png'}
-				alt={correspondent?.email ?? 'CORRESPONDENT'}
-			/>
+			<Avatar user={correspondent} width={45} height={45} />
 			<div className='text-sm w-full'>
 				<div className='flex items-center justify-between'>
 					<p>{correspondent?.username}</p>
