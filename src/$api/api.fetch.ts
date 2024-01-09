@@ -61,7 +61,6 @@ class FetchClient {
 		isAuth: boolean
 	): Promise<T> {
 		const url = `${this.API_URL}${path}`;
-		console.log(url);
 
 		const authorizationHeader = isAuth
 			? { Authorization: `Bearer ${cookies.get('token')}` }
