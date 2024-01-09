@@ -5,10 +5,12 @@ import styles from './layoutClient.module.scss';
 
 export default function LayoutClient({ children }: PropsWithChildren<unknown>) {
 	return (
-		<main className={styles.layout}>
-			<Sidebar />
-			<section>{children}</section>
+		<>
+			<main className={styles.layout}>
+				<Sidebar />
+				<section>{children}</section>
+			</main>
 			<Toaster position='top-right' />
-		</main>
+		</>
 	);
 }
