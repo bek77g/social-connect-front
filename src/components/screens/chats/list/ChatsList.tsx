@@ -12,7 +12,7 @@ import { useState } from 'react';
 export function ChatsList() {
 	const { isLoggedIn } = useAuth();
 	const [searchTerm, setSearchTerm] = useState('');
-	const debouncedSearchTerm = useDebounce(searchTerm, 300);
+	const debouncedSearchTerm = useDebounce(searchTerm);
 
 	const { data, isLoading } = useQuery({
 		queryKey: ['chats', debouncedSearchTerm],
