@@ -1,16 +1,42 @@
+import { $fetch } from '@/$api/api.fetch';
 import Field from '@/components/ui/Field';
+import useAuth from '@/hooks/useAuth';
+import { useReactQuerySubscription } from '@/hooks/useReactQuerySubscription';
+import { useMutation } from '@tanstack/react-query';
 import { ArrowRightToLine, SendHorizonal } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-interface IMessageField {
-	sendMessage: (message: string) => Promise<void>;
-}
-
-export function MessageField({ sendMessage }: IMessageField) {
+export function MessageField() {
 	const [message, setMessage] = useState('');
+	const { user } = useAuth();
+	const send = useReactQuerySubscription();
+	const { id } = useParams();
+
+	const { mutate } = useMutation({
+		mutationKey: ['updateChat', id],
+		mutationFn: () =>
+			$fetch.post(
+				'/messages',
+				{ data: { text: message, sender: user?.id, chat: id } },
+				{},
+				true
+			),
+		onSuccess() {
+			setMessage('');
+			send({
+				operation: 'update',
+				entity: 'chat',
+				id: id.toString(),
+			});
+		},
+	});
 
 	const onSubmit = () => {
-		message && sendMessage(message);
+		if (!message) return;
+		console.log('Sending message');
+
+		mutate();
 	};
 
 	return (
@@ -23,7 +49,7 @@ export function MessageField({ sendMessage }: IMessageField) {
 				className='w-full'
 			/>
 			<button
-				onClick={() => {}}
+				onClick={onSubmit}
 				disabled={!message}
 				className='hover:text-primary transition-colors cursor-pointer'>
 				<SendHorizonal />
