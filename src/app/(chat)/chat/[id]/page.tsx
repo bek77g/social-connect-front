@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { Chat } from '@/components/screens/chats/chat/Chat';
 import { NO_INDEX_PAGE } from '@/constants/seo.constants';
 
 export const metadata: Metadata = {
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ChatPage() {
-	return <p className='p-layout'>Здесь будет чат</p>;
+	return <Chat />;
 }
