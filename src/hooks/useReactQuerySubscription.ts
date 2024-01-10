@@ -27,17 +27,21 @@ export function useReactQuerySubscription() {
 		});
 
 		socket.current.on('invalidate', (data: WebSocketEvent) => {
-			queryClient.invalidateQueries();
+			queryClient.invalidateQueries({
+				queryKey: [data.entity, data.id].filter(Boolean),
+			});
 		});
 
 		socket.current.on('update', (data: WebSocketEvent) => {
-			queryClient.setQueriesData(
-				{ queryKey: [data.entity] },
-				(oldData: UpdateData) => {
-					const update = entity => {
+			queryClient.setQueriesData<UpdateData[] | UpdateData | undefined>(
+				{ queryKey: [data.entity, data.id] },
+				oldData => {
+					const update = (entity: UpdateData) => {
 						entity.id === data.id ? { ...entity, ...data.payload } : entity;
 					};
-					return Array.isArray(oldData) ? oldData.map(update) : update(oldData);
+					return Array.isArray(oldData)
+						? oldData.map(update)
+						: update(oldData as UpdateData);
 				}
 			);
 		});
@@ -47,9 +51,11 @@ export function useReactQuerySubscription() {
 		// });
 
 		return () => {
-			socket.current?.close();
+			socket.current?.disconnect();
 		};
 	}, [queryClient]);
 
-	return input => {};
+	return (input: WebSocketEvent) => {
+		socket.current?.emit('invalidate', input);
+	};
 }
