@@ -10,6 +10,8 @@ export function Avatar({
 	className,
 	...restProps
 }: IAvatar) {
+	if (!user) return null;
+
 	const hasAvatar = !!user.avatar?.url;
 	const usernameInitial = user?.username[0].toUpperCase() ?? '';
 
