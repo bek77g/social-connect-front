@@ -11,26 +11,34 @@ export function Message({ message }: { message: IMessage }) {
 	return (
 		<div
 			className={cn('flex mb-2.5', {
-				'justify-end': isSender,
-				'justify-start': !isSender,
+				'justify-start': isSender,
+				'justify-end': !isSender,
 			})}>
 			<div
-				className={cn('relative flex items-center', {
-					'flex-row-reverse': isSender,
+				className={cn('relative flex items-start', {
+					'flex-row-reverse': !isSender,
 				})}>
-				<Avatar
-					user={message.sender}
-					width={45}
-					height={45}
-					className='rounded-full'
-				/>
+				<Avatar user={message.sender} className='rounded-full' />
 				<div
-					className={cn('bg-gray-200 p-2 rounded-lg', {
-						'mr-3': isSender,
-						'ml-3': !isSender,
+					className={cn('', {
+						'ml-3': isSender,
+						'mr-3': !isSender,
 					})}>
-					<p className='text-sm text-gray-800'>{message.text}</p>
-					<span className='text-xs text-gray-500 block mt-1'>
+					<div
+						className={cn(
+							'text-sm text-white bg-gray-200 mt-1 py-1.5 px-3 rounded-lg rounded-2xl',
+							{
+								'rounded-tl-none bg-border': isSender,
+								'rounded-tr-none bg-primary': !isSender,
+							}
+						)}>
+						<p>{message.text}</p>
+					</div>
+					<span
+						className={cn('text-xs text-gray-500 block mt-2', {
+							'text-left': isSender,
+							'text-right': !isSender,
+						})}>
 						{dayjs(message.createdAt).format('HH:mm')}
 					</span>
 				</div>
