@@ -26,7 +26,9 @@ export function useReactQuerySubscription() {
 			console.log('Connected to socket.io server');
 		});
 
-		socket.current.on('invalidate', (data: WebSocketEvent) => {
+		socket.current.on('server-message', (data: WebSocketEvent) => {
+			console.log('Server message: ' + JSON.stringify(data));
+
 			queryClient.invalidateQueries({
 				queryKey: [data.entity, data.id].filter(Boolean),
 			});
@@ -34,7 +36,7 @@ export function useReactQuerySubscription() {
 
 		socket.current.on('update', (data: WebSocketEvent) => {
 			queryClient.setQueriesData<UpdateData[] | UpdateData | undefined>(
-				{ queryKey: [data.entity, data.id] },
+				{ queryKey: ['update', data.entity, data.id] },
 				oldData => {
 					const update = (entity: UpdateData) => {
 						entity.id === data.id ? { ...entity, ...data.payload } : entity;
@@ -46,16 +48,12 @@ export function useReactQuerySubscription() {
 			);
 		});
 
-		// socket.current.on('message', (data: WebSocketEvent) => {
-		// 	console.log('Received message from server: ' + JSON.stringify(data));
-		// });
-
 		return () => {
 			socket.current?.disconnect();
 		};
 	}, [queryClient]);
 
 	return (input: WebSocketEvent) => {
-		socket.current?.emit('invalidate', input);
+		socket.current?.emit('client-message', input);
 	};
 }
