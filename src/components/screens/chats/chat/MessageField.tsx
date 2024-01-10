@@ -5,7 +5,7 @@ import { useReactQuerySubscription } from '@/hooks/useReactQuerySubscription';
 import { useMutation } from '@tanstack/react-query';
 import { ArrowRightToLine, SendHorizonal } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 export function MessageField() {
 	const [message, setMessage] = useState('');
@@ -32,7 +32,8 @@ export function MessageField() {
 		},
 	});
 
-	const onSubmit = () => {
+	const onSubmit = (e: FormEvent) => {
+		e.preventDefault();
 		if (!message) return;
 		console.log('Sending message');
 
@@ -40,7 +41,9 @@ export function MessageField() {
 	};
 
 	return (
-		<div className='border-t border-border p-layout flex items-center justify-between gap-5'>
+		<form
+			onSubmit={onSubmit}
+			className='border-t border-border p-layout flex items-center justify-between gap-5'>
 			<Field
 				placeholder='Write a message...'
 				value={message}
@@ -49,11 +52,11 @@ export function MessageField() {
 				className='w-full'
 			/>
 			<button
-				onClick={onSubmit}
+				type='submit'
 				disabled={!message}
 				className='hover:text-primary transition-colors cursor-pointer'>
 				<SendHorizonal />
 			</button>
-		</div>
+		</form>
 	);
 }
