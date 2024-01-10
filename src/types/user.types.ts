@@ -3,7 +3,7 @@ export interface IUser {
 	email: string;
 	confirmed: boolean;
 	role: string;
-	avatar: { url: string };
+	avatar: { url: string } | null;
 }
 
 export type UserJwt = {
