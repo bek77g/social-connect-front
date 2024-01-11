@@ -30,7 +30,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 	}, [loading, unAuthorized, sessionStatus, pathname]);
 
 	if (loading) {
-		return <Loader />;
+		return (
+			<div className='grid place place-items-center text-xxl h-full'>
+				<Loader />
+			</div>
+		);
 	}
 
 	return children;
