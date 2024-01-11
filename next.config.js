@@ -5,7 +5,7 @@ const nextConfig = {
 	NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 	NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 	images: {
-		domains: ['127.0.0.1'],
+		domains: ['127.0.0.1', '192.168.0.185'],
 	},
 };
 
