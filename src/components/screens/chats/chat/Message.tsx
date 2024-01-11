@@ -26,7 +26,7 @@ export function Message({ message }: { message: IMessage }) {
 					})}>
 					<div
 						className={cn(
-							'text-sm text-white bg-gray-200 mt-1 py-1.5 px-3 rounded-lg rounded-2xl',
+							'text-sm text-white  mt-1 py-1.5 px-3 rounded-lg rounded-2xl',
 							{
 								'rounded-tr-none bg-primary': isSender,
 								'rounded-tl-none bg-border': !isSender,
