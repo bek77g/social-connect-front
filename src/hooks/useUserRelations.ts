@@ -16,7 +16,7 @@ export const useUserRelations = () => {
 
 	const getRelations = async () => {
 		const data = await $fetch.get<IUserRelation[]>(
-			`${API_BASE_URL}?populate[friendshipRelation][populate][avatar]=*&filters[friendshipRelation][id][$eq]=1`,
+			`${API_BASE_URL}?populate[friendshipRelation][populate][avatar]=*&filters[friendshipRelation][id][$eq]=${userId}`,
 			{},
 			true
 		);
@@ -26,7 +26,7 @@ export const useUserRelations = () => {
 	const createRelation = async ({ relatedId, relatingId }) => {
 		const response = await $fetch.post(
 			API_BASE_URL,
-			{ friendshipRelation: [relatedId, relatingId] },
+			{ data: { friendshipRelation: [relatedId, relatingId] } },
 			{},
 			true
 		);
