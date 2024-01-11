@@ -19,8 +19,8 @@ export function FriendsList() {
 				</div>
 			) : (
 				<div className='grid grid-cols-3'>
-					{data?.map((user, idx) => (
-						<FriendsListItem key={user.id} user={user} idx={idx} />
+					{data?.map(user => (
+						<FriendsListItem key={user.id} user={user} />
 					))}
 				</div>
 			)}

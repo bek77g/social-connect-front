@@ -5,13 +5,25 @@ import { IUser } from '@/types/user.types';
 
 interface IFriendsListItem {
 	user: IUser;
-	idx: number;
 }
 
-export function FriendsListItem({ user, idx }: IFriendsListItem) {
+export function FriendsListItem({ user }: IFriendsListItem) {
 	const { user: authUser } = useAuth();
-	const { userRelations } = useUserRelations(authUser.id);
-	const isFriend = userRelations?.some(u => u.id === user.id);
+	const { userRelations, createRelation, deleteRelation, getCurrentRelation } =
+		useUserRelations();
+	const currentRelation = getCurrentRelation(user.id);
+
+	const isFriend = !!currentRelation;
+
+	const onSubmit = () => {
+		if (isFriend) {
+			deleteRelation(currentRelation.id);
+		} else {
+			createRelation({ relatedId: authUser.id, relatingId: user?.id });
+		}
+	};
+
+	if (authUser.id === user.id) return null;
 
 	return (
 		<div
@@ -19,7 +31,9 @@ export function FriendsListItem({ user, idx }: IFriendsListItem) {
 			key={user.id}>
 			<Avatar user={user} width={70} height={70} className='mx-auto' />
 			<p className='mt-3 text-lg font-medium'>{user.username}</p>
-			<button className='border-b border-white transition-colors hover:border-primary hover:text-primary'>
+			<button
+				onClick={onSubmit}
+				className='border-b border-white transition-colors hover:border-primary hover:text-primary'>
 				{isFriend ? 'Remove from friends' : 'Add to friend'}
 			</button>
 		</div>

@@ -1,13 +1,21 @@
 import { $fetch } from '@/$api/api.fetch';
+import { IUser } from '@/types/user.types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 const API_BASE_URL = '/user-relationships';
 
-export const useUserRelations = (userId: number) => {
+interface IUserRelation {
+	friendshipRelation: IUser;
+}
+
+export const useUserRelations = () => {
+	const { data: session } = useSession();
+	const userId = session?.user.id;
 	const queryClient = useQueryClient();
 
 	const getRelations = async () => {
-		const data = await $fetch.get(
+		const data = await $fetch.get<IUserRelation[]>(
 			`${API_BASE_URL}?populate[friendshipRelation][populate][avatar]=*&filters[friendshipRelation][id][$eq]=1`,
 			{},
 			true
@@ -15,8 +23,13 @@ export const useUserRelations = (userId: number) => {
 		return await data;
 	};
 
-	const createRelation = async newRelation => {
-		const response = await $fetch.post(API_BASE_URL, newRelation, {}, true);
+	const createRelation = async ({ relatedId, relatingId }) => {
+		const response = await $fetch.post(
+			API_BASE_URL,
+			{ friendshipRelation: [relatedId, relatingId] },
+			{},
+			true
+		);
 		return await data;
 	};
 
@@ -33,34 +46,33 @@ export const useUserRelations = (userId: number) => {
 		data: userRelations,
 		isLoading,
 		isError,
+		refetch,
 	} = useQuery({
-		queryKey: ['userRelations'],
+		queryKey: ['userRelations', userId],
 		queryFn: getRelations,
-		select: data =>
-			data?.data?.reduce(
-				(acc, rec) => [
-					...acc,
-					...rec?.friendshipRelation.filter(r => r.id !== userId),
-				],
-				[]
-			),
+		select: data => data?.data,
 	});
 
 	const createMutation = useMutation({
-		mutationKey: 'userRelations',
+		mutationKey: ['userRelations', userId],
 		mutationFn: createRelation,
 		onSuccess: () => {
-			queryClient.invalidateQueries('userRelations');
+			queryClient.invalidateQueries(['userRelations', userId]);
+			refetch();
 		},
 	});
 
 	const deleteMutation = useMutation({
-		mutationKey: 'userRelations',
+		mutationKey: ['userRelations', userId],
 		mutationFn: deleteRelation,
 		onSuccess: () => {
-			queryClient.invalidateQueries('userRelations');
+			queryClient.invalidateQueries(['userRelations', userId]);
+			refetch();
 		},
 	});
+
+	const getCurrentRelation = (id: number) =>
+		userRelations?.find(r => r.friendshipRelation.some(u => u.id === id));
 
 	return {
 		userRelations,
@@ -68,5 +80,6 @@ export const useUserRelations = (userId: number) => {
 		isError,
 		createRelation: createMutation.mutate,
 		deleteRelation: deleteMutation.mutate,
+		getCurrentRelation,
 	};
 };
