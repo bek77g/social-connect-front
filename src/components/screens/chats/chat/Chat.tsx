@@ -27,7 +27,7 @@ export function Chat({ id }) {
 
 	return (
 		<div
-			className={cn('w-8/12 border-r border-border grid', {
+			className={cn('w-8/12 border-r border-border grid max-h-screen', {
 				'grid-rows-[1fr_0.09fr]': isLoading,
 				'grid-rows-[0.6fr_6fr_0.6fr]': !isLoading,
 			})}>

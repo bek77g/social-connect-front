@@ -3,7 +3,7 @@ import { IChat } from '@/types/chat.types';
 
 export function ChatContent({ messages = [] }: IChat) {
 	return (
-		<div className='p-layout border-t border-border'>
+		<div className='p-layout border-t border-border overflow-y-scroll'>
 			{messages.map(message => (
 				<Message key={message.id} message={message} />
 			))}
