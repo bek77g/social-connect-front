@@ -1,10 +1,12 @@
 'use client';
 import { Avatar } from '@/components/ui/Avatar';
 import useAuth from '@/hooks/useAuth';
+import { useProfile } from '@/hooks/useProfile';
 import { LogOut } from 'lucide-react';
 
 export function CurrentsUser() {
-	const { user, logout } = useAuth();
+	const { logout } = useAuth();
+	const { data: user } = useProfile();
 
 	if (!user) return null;
 
