@@ -1,4 +1,3 @@
-import { cookies } from '@/$api/api.cookie';
 import { $fetch } from '@/$api/api.fetch';
 import { IAuthFromState } from '@/components/screens/Auth/auth.types';
 import { UserJwt } from '@/types/user.types';
@@ -25,15 +24,9 @@ export default NextAuth({
 				if (!email || !password) return null;
 				if (username) {
 					try {
-						const { jwt } = await $fetch.post<UserJwt>(
+						const { user, jwt } = await $fetch.post<UserJwt>(
 							`/auth/local/register`,
 							credentials
-						);
-						cookies.set('token', jwt);
-						const user = await $fetch.get<UserJwt>(
-							'/users/me?populate[avatar]=*',
-							{},
-							true
 						);
 						return { ...user, jwt };
 					} catch (error) {
@@ -42,16 +35,10 @@ export default NextAuth({
 				}
 
 				try {
-					const { jwt } = await $fetch.post<UserJwt>(`/auth/local`, {
+					const { user, jwt } = await $fetch.post<UserJwt>(`/auth/local`, {
 						identifier: email,
 						password: password,
 					});
-					cookies.set('token', jwt);
-					const user = await $fetch.get<UserJwt>(
-						'/users/me?populate[avatar]=*',
-						{},
-						true
-					);
 					return { ...user, jwt };
 				} catch (error) {
 					return Promise.reject(error);
