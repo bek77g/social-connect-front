@@ -14,7 +14,7 @@ export function MessageField() {
 	const { id } = useParams();
 
 	const { mutate } = useMutation({
-		mutationKey: ['updateChat', id],
+		mutationKey: ['updateChat', 'update', id],
 		mutationFn: () =>
 			$fetch.post(
 				'/messages',
@@ -45,6 +45,7 @@ export function MessageField() {
 			onSubmit={onSubmit}
 			className='border-t border-border p-layout flex items-center justify-between gap-5'>
 			<Field
+				autoFocus
 				placeholder='Write a message...'
 				value={message}
 				onChange={({ target }) => setMessage(target.value)}
