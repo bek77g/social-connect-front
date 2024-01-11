@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 export function ChatsList() {
 	const { isLoggedIn } = useAuth();
+	const { user } = useAuth();
 	const [searchTerm, setSearchTerm] = useState('');
 	const debouncedSearchTerm = useDebounce(searchTerm);
 
@@ -21,6 +22,7 @@ export function ChatsList() {
 				`/chats?sort=createdAt:desc
 				&populate[messages]=*
 				&populate[participants][populate][avatar]=*
+				&filters[participants][email][$eq]=${user.email}
 				&filters[participants][username][$containsi]=${debouncedSearchTerm}`,
 				{},
 				true

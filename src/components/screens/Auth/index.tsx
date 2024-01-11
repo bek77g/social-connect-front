@@ -5,6 +5,7 @@ import Field from '@/components/ui/Field';
 import { AtSign, KeyRound, User2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/dist/client/components/navigation';
+import Link from 'next/link';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -81,10 +82,19 @@ export function Auth({ type }: IAuth) {
 					className='mb-12'
 					error={errors.password}
 				/>
-				<div className='text-center'>
-					<Button isLoading={isLoading} disabled={isLoading} type='submit'>
+				<div className='flex flex-col gap-2 items-center'>
+					<Button
+						className='w-full'
+						isLoading={isLoading}
+						disabled={isLoading}
+						type='submit'>
 						{type}
 					</Button>
+					<Link
+						className='block w-fit mt-2 border-b border-white hover:border-primary hover:text-primary transition-colors'
+						href={type === 'Login' ? '/register' : '/login'}>
+						{type === 'Login' ? 'Register now' : 'Login in'}
+					</Link>
 				</div>
 			</form>
 		</div>
