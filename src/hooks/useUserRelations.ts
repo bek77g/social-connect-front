@@ -46,7 +46,6 @@ export const useUserRelations = () => {
 		data: userRelations,
 		isLoading,
 		isError,
-		refetch,
 	} = useQuery({
 		queryKey: ['userRelations', userId],
 		queryFn: getRelations,
@@ -56,18 +55,16 @@ export const useUserRelations = () => {
 	const createMutation = useMutation({
 		mutationKey: ['userRelations', userId],
 		mutationFn: createRelation,
-		onSuccess: () => {
-			queryClient.invalidateQueries(['userRelations', userId]);
-			refetch();
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey: ['userRelations', userId] });
 		},
 	});
 
 	const deleteMutation = useMutation({
 		mutationKey: ['userRelations', userId],
 		mutationFn: deleteRelation,
-		onSuccess: () => {
-			queryClient.invalidateQueries(['userRelations', userId]);
-			refetch();
+		onSettled: () => {
+			queryClient.invalidateQueries({ queryKey: ['userRelations', userId] });
 		},
 	});
 
