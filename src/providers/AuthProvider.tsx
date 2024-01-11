@@ -17,7 +17,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
 	useEffect(() => {
 		if (loading) return;
-		if (unAuthorized) {
+		if (unAuthorized && pathname !== '/login' && pathname !== '/register') {
 			console.log('not authorized');
 			router.push('/login');
 		}
