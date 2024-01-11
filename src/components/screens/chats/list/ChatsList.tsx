@@ -48,7 +48,9 @@ export function ChatsList() {
 				) : data?.data?.length ? (
 					data?.data.map(chat => <ChatsListItem key={chat.id} {...chat} />)
 				) : (
-					<p className='p-layout'>Chats not found!</p>
+					<h3 className='text-md w-fit bg-border text-white py-2 px-4 rounded-lg mx-auto mt-4'>
+						Chats not found!
+					</h3>
 				)}
 			</div>
 		</>

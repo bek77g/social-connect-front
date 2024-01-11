@@ -24,7 +24,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 		if (authorized) {
 			cookies.set('token', user?.jwt ?? '', {
 				sameSite: 'None',
-				secure: true,
+				// secure: true,
 			});
 		}
 	}, [loading, unAuthorized, sessionStatus, pathname]);

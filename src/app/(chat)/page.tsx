@@ -1,3 +1,9 @@
 export default function ChatPage() {
-	return <p className='p-layout'>Click chat on the left side!</p>;
+	return (
+		<div className='p-layout grid place-items-center'>
+			<h2 className='text-xl bg-border text-white py-2 px-4 rounded-lg'>
+				Choose chat on the left or find in friends page
+			</h2>
+		</div>
+	);
 }
