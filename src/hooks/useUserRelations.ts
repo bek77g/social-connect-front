@@ -24,7 +24,7 @@ export const useUserRelations = () => {
 	};
 
 	const createRelation = async ({ relatedId, relatingId }) => {
-		const response = await $fetch.post(
+		const data = await $fetch.post(
 			API_BASE_URL,
 			{ data: { friendshipRelation: [relatedId, relatingId] } },
 			{},
@@ -34,11 +34,7 @@ export const useUserRelations = () => {
 	};
 
 	const deleteRelation = async relationId => {
-		const response = await $fetch.delete(
-			`${API_BASE_URL}/${relationId}`,
-			{},
-			true
-		);
+		const data = await $fetch.delete(`${API_BASE_URL}/${relationId}`, {}, true);
 		return await data;
 	};
 
@@ -55,7 +51,7 @@ export const useUserRelations = () => {
 	const createMutation = useMutation({
 		mutationKey: ['userRelations', userId],
 		mutationFn: createRelation,
-		onSettled: () => {
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['userRelations', userId] });
 		},
 	});
@@ -63,7 +59,7 @@ export const useUserRelations = () => {
 	const deleteMutation = useMutation({
 		mutationKey: ['userRelations', userId],
 		mutationFn: deleteRelation,
-		onSettled: () => {
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['userRelations', userId] });
 		},
 	});

@@ -5,6 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 export function useProfile() {
 	return useQuery({
 		queryKey: ['profile'],
-		queryFn: () => $fetch.get<IUser>('/users/me?populate[avatar]=*', {}, true),
+		queryFn: () =>
+			$fetch.get<IUser>(
+				'/users/me?populate[avatar]=*&populate[chats][populate][participants]=*',
+				{},
+				true
+			),
 	});
 }
