@@ -1,5 +1,6 @@
 import { Avatar } from '@/components/ui/Avatar';
-import { useProfile } from '@/hooks/useProfile';
+import useAuth from '@/hooks/useAuth';
+import { useUserRelations } from '@/hooks/useUserRelations';
 import { IUser } from '@/types/user.types';
 
 interface IFriendsListItem {
@@ -8,8 +9,9 @@ interface IFriendsListItem {
 }
 
 export function FriendsListItem({ user, idx }: IFriendsListItem) {
-	const { data: authUser } = useProfile();
-	// const isFriend = authUser?.friends?.some(u => u.id === authUser.id);
+	const { user: authUser } = useAuth();
+	const { userRelations } = useUserRelations(authUser.id);
+	const isFriend = userRelations?.some(u => u.id === user.id);
 
 	return (
 		<div
@@ -18,7 +20,7 @@ export function FriendsListItem({ user, idx }: IFriendsListItem) {
 			<Avatar user={user} width={70} height={70} className='mx-auto' />
 			<p className='mt-3 text-lg font-medium'>{user.username}</p>
 			<button className='border-b border-white transition-colors hover:border-primary hover:text-primary'>
-				{/* {isFriend ? 'Remove from friends' : 'Add to friend'} */}
+				{isFriend ? 'Remove from friends' : 'Add to friend'}
 			</button>
 		</div>
 	);
