@@ -1,7 +1,7 @@
 'use client';
 import { $fetch } from '@/$api/api.fetch';
+import { ChatContent } from '@/components/screens/chats/chat/ChatContent';
 import { ChatHeader } from '@/components/screens/chats/chat/ChatHeader';
-import { Message } from '@/components/screens/chats/chat/Message';
 import { MessageField } from '@/components/screens/chats/chat/MessageField';
 import { Loader } from '@/components/ui/Loader';
 import useAuth from '@/hooks/useAuth';
@@ -38,11 +38,7 @@ export function Chat({ id }) {
 			) : (
 				<>
 					<ChatHeader participant={correspondent} />
-					<div className='p-layout border-t border-border'>
-						{data?.messages.map(message => (
-							<Message key={message.id} message={message} />
-						))}
-					</div>
+					<ChatContent messages={data?.messages} />
 				</>
 			)}
 			<MessageField />
