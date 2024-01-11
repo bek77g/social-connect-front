@@ -3,6 +3,7 @@ import { Loader } from '@/components/ui/Loader';
 import useAuth from '@/hooks/useAuth';
 import { useUserRelations } from '@/hooks/useUserRelations';
 import { IUser } from '@/types/user.types';
+import toast from 'react-hot-toast';
 
 interface IFriendsListItem {
 	user: IUser;
@@ -18,9 +19,16 @@ export function FriendsListItem({ user }: IFriendsListItem) {
 
 	const onSubmit = () => {
 		if (isFriend) {
-			deleteRelation(currentRelation.id);
+			deleteRelation(currentRelation.id, {
+				onSettled: () => toast.success(`${user?.username} удалён из друзей`),
+			});
 		} else {
-			createRelation({ relatedId: authUser.id, relatingId: user?.id });
+			createRelation(
+				{ relatedId: authUser.id, relatingId: user?.id },
+				{
+					onSettled: () => toast.success(`${user?.username} добавлен в друзья`),
+				}
+			);
 		}
 	};
 
