@@ -17,7 +17,9 @@ export function Chat({ id }) {
 			$fetch.get<{ data: IChat }>(
 				`/chats/${id}
 				?populate[messages][populate][sender][populate][avatar]=*
-				&populate[participants][populate][avatar]=*`
+				&populate[participants][populate][avatar]=*`,
+				{},
+				true
 			),
 		select: data => data.data,
 		enabled: !!id,
