@@ -1,6 +1,5 @@
 import { Avatar } from '@/components/ui/Avatar';
 import { IUser } from '@/types/user.types';
-import cn from 'clsx';
 
 interface IFriendsListItem {
 	user: IUser;
@@ -10,9 +9,7 @@ interface IFriendsListItem {
 export function FriendsListItem({ user, idx }: IFriendsListItem) {
 	return (
 		<div
-			className={cn('border border-border border-t-0 p-layout text-center', {
-				'border-l-0': idx % 3 === 0,
-			})}
+			className='border border-border border-l-0 border-t-0 p-layout text-center'
 			key={user.id}>
 			<Avatar user={user} width={70} height={70} className='mx-auto' />
 			<p className='mt-3 text-lg font-medium'>{user.username}</p>
